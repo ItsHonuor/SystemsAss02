@@ -40,7 +40,11 @@ The project is designed around real hotel roles like:
 - Set low-stock thresholds (so you don’t randomly run out mid-week)
 - Optional: log deliveries and usage history
 
+HEAD
 ### 💷 Basic Finance Tracking (High-level)
+=======
+### 💷 Basic Finance Tracking 
+ (Added dashboard and frontend updates)
 - Track simple costs vs revenue
 - Quick summaries for performance snapshots
 
@@ -50,11 +54,19 @@ The project is designed around real hotel roles like:
 
 ### Frontend
 - ⚛️ **React**
+HEAD
 - 🟩 **Node.js** (npm, tooling, dev server)
 - 🌬️ **Tailwind CSS**
 
 ### Backend
 - 🐍 **Flask (Python)**
+=======
+- 🟩 **Node.js**
+- 🌬️ **Tailwind CSS**
+
+### Backend
+- 🐍 **Django (Python)**
+4a9b91b (Added dashboard and frontend updates)
 
 ### Database
 - 🗄️ **SQL**
