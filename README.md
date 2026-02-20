@@ -1,7 +1,7 @@
 # 🏨 Hotel Management System
 
 This is the current Frontend Version: systems-ass02.vercel.app
-It brings together **bookings**, **check-ins/outs**, **housekeeping rotas**, **pricing/deals**, and **stock/inventory** in one place — instead of staff juggling spreadsheets, paper checklists, and “just ask reception”.
+
 
 ---
 
