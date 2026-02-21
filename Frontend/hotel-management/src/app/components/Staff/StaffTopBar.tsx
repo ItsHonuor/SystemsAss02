@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react'
 import { FaRegClock } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
+import { LuUsers } from "react-icons/lu";
 import { toZonedTime, format } from "date-fns-tz";
 
 const UK_TIMEZONE = "Europe/London";
 
-export const TopBar = () => {
+export const StaffTopBar = () => {
     const [time, setTime] = useState("");
     const [date, setDate] = useState("");
 
@@ -26,15 +26,15 @@ export const TopBar = () => {
     return (
         <div className="border-b border-stone-200 px-6 py-4 bg-white">
             <div className="flex items-center justify-between">
-
-                {/* Left — icon + greeting + subtitle */}
+                
+                {/* Left — icon + title + subtitle */}
                 <div className="flex items-center gap-3">
                     <div className="bg-indigo-100 p-2.5 rounded-xl">
-                        <MdDashboard className="text-indigo-600 text-xl" />
+                        <LuUsers className="text-indigo-600 text-xl" />
                     </div>
                     <div>
-                        <h1 className="text-base font-bold text-stone-800">🚀 Good Morning, Admin</h1>
-                        <p className="text-xs text-stone-400">Welcome back to your dashboard!</p>
+                        <h1 className="text-base font-bold text-stone-800">Staff Management</h1>
+                        <p className="text-xs text-stone-400">View and manage all hotel employees</p>
                     </div>
                 </div>
 
