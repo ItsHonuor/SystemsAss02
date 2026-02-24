@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 const routes = [
   { Icon: FaHome,             title: "Dashboard",        href: "/"        },
   { Icon: LuUsers,            title: "Staff Management", href: "/staff"   },
-  { Icon: IoBedOutline,       title: "Rooms",            href: "/rooms"   },
+  { Icon: IoBedOutline,       title: "Rooms",            href: "/rooms" },
   { Icon: TbToolsKitchen2,    title: "Kitchen",          href: "/kitchen" },
   { Icon: FaRegCalendarCheck, title: "Booking",          href: "/booking" },
   { Icon: MdPeopleAlt,        title: "Guests",           href: "/guests"  },
