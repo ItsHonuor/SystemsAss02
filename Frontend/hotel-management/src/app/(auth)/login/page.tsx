@@ -15,27 +15,32 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
 
   const handleLogin = () => {
-    setLoading(true)
-    setTimeout(() => {
-      const user = USERS.find(u => u.email === email && u.password === password)
-      if (user) router.push(`/${user.role}/dashboard`)
-      else {
-        setLoading(false)
-        alert("Access Denied")
+    setLoading(true);
+    
+    // 1. Find the user in the USERS array
+    const user = USERS.find(u => u.email === email && u.password === password);
+
+    if (user) {
+      // 2. Redirect based on the new folder names we created in WSL
+      if (user.role === 'admin') {
+        router.push('/admin-dash');
+      } else if (user.role === 'reception') {
+        router.push('/reception-dash');
+      } else if (user.role === 'kitchen') {
+        router.push('/kitchen'); // Ensure this folder exists
       }
-    }, 1000)
+    } else {
+      alert("Invalid credentials");
+      setLoading(false);
+    }
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#030712] relative overflow-hidden font-sans">
-      
-      {/* 1. LARGER AMBIENT GLOWS */}
       <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[160px] animate-pulse" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-indigo-500/15 rounded-full blur-[160px]" />
 
       <div className="relative z-10 w-full max-w-lg px-6">
-        
-        {/* 2. ENHANCED BRANDING */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-700 rounded-[28px] shadow-[0_0_50px_rgba(59,130,246,0.5)] mb-8">
             <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,7 +51,6 @@ export default function LoginPage() {
           <p className="text-blue-400 text-xs font-bold uppercase tracking-[0.5em] opacity-80">Internal Systems Portal</p>
         </div>
 
-        {/* 3. LARGER & BRIGHTER CARD */}
         <div className="bg-white/[0.06] backdrop-blur-3xl border border-white/20 rounded-[40px] p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="mb-10 text-center">
             <h2 className="text-2xl font-bold text-white tracking-tight">Staff Authentication</h2>
@@ -83,14 +87,8 @@ export default function LoginPage() {
             disabled={loading}
             className="mt-12 w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 disabled:opacity-50 text-white font-black uppercase tracking-[0.2em] text-xs py-6 rounded-2xl transition-all duration-500 shadow-[0_10px_30px_rgba(37,99,235,0.3)] active:scale-[0.98] flex items-center justify-center gap-4"
           >
-            {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'start session'}
+            {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'initialize session'}
           </button>
-        </div>
-
-        {/* 4. SYSTEM FOOTER */}
-        <div className="mt-10 text-center">
-            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em]">
-            </p>
         </div>
       </div>
     </div>
