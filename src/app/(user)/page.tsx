@@ -23,7 +23,7 @@ export default function HomePage() {
     const [rewardsJoined, setRewardsJoined] = useState(false);
     const [rewardsForm, setRewardsForm] = useState({ name: "", email: "" });
     const [rewardsCard] = useState(() => "ATL-" + Math.floor(100000 + Math.random() * 900000));
-    const [destination, setDestination] = useState("");
+    const [guests, setGuests] = useState("");
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
 
@@ -36,7 +36,7 @@ export default function HomePage() {
 
     const handleSearch = () => {
         const params = new URLSearchParams();
-        if (destination) params.set("destination", destination);
+        if (guests) params.set("guests", guests);
         if (checkIn) params.set("checkIn", checkIn);
         if (checkOut) params.set("checkOut", checkOut);
         router.push(`/rooms?${params.toString()}`);
@@ -225,19 +225,33 @@ export default function HomePage() {
                         Your next stay <br /> starts here
                     </h1>
                     <div className="bg-white/95 backdrop-blur-md rounded-[40px] p-4 shadow-2xl flex flex-col md:flex-row items-center gap-4 w-full max-w-5xl mx-auto border border-white/50 text-left">
+
+                        {/* GUESTS */}
                         <div className="flex-[1.5] w-full px-10 py-4 md:border-r border-gray-100">
-                            <label className="block text-[11px] uppercase font-black text-gray-400 tracking-widest mb-2">Where to?</label>
-                            <input type="text" placeholder="Search destinations" value={destination}
-                                onChange={(e) => setDestination(e.target.value)}
-                                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                                className="w-full bg-transparent outline-none text-xl text-black font-medium placeholder-gray-300" />
+                            <label className="block text-[11px] uppercase font-black text-gray-400 tracking-widest mb-2">Guests</label>
+                            <select
+                                value={guests}
+                                onChange={(e) => setGuests(e.target.value)}
+                                className="w-full bg-transparent outline-none text-xl text-black font-medium appearance-none cursor-pointer"
+                            >
+                                <option value="">Number of guests</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5+ Guests</option>
+                            </select>
                         </div>
+
+                        {/* DATES */}
                         <div className="flex-1 w-full px-10 py-4" onClick={() => setShowDatePicker(true)}>
                             <label className="block text-[11px] uppercase font-black text-gray-400 tracking-widest mb-2 cursor-pointer">Schedule</label>
                             <button className="text-xl font-medium text-left w-full transition-colors" style={{ color: formatDateRange() ? "#1d1d1f" : "#d1d5db" }}>
                                 {formatDateRange() || "Select dates"}
                             </button>
                         </div>
+
+                        {/* SEARCH */}
                         <button onClick={handleSearch}
                             className="w-full md:w-auto bg-black text-white px-16 py-6 rounded-[30px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] hover:bg-zinc-800">
                             Search
