@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Staff {
@@ -53,12 +53,12 @@ model KitchenOrder {
 }
 
 model HousekeepingTask {
-  id         Int      @id @default(autoincrement())
-  roomNumber String
-  taskType   String
-  priority   String
-  status     String
-  assignedTo String?
+  id          Int       @id @default(autoincrement())
+  roomNumber  String
+  taskType    String
+  priority    String
+  status      String
+  assignedTo  String?
   completedAt DateTime?
 }
 
