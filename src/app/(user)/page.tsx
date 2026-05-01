@@ -232,14 +232,15 @@ export default function HomePage() {
                             <select
                                 value={guests}
                                 onChange={(e) => setGuests(e.target.value)}
-                                className="w-full bg-transparent outline-none text-xl text-black font-medium appearance-none cursor-pointer"
+                                style={{ color: guests ? "#1d1d1f" : "#d1d5db" }}
+                                className="w-full bg-transparent outline-none text-xl font-medium appearance-none cursor-pointer"
                             >
-                                <option value="">Number of guests</option>
-                                <option value="1">1 Guest</option>
-                                <option value="2">2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                                <option value="5">5+ Guests</option>
+                                <option value="" disabled hidden>Number of guests</option>
+                                <option value="1" style={{ color: "#1d1d1f" }}>1 Guest</option>
+                                <option value="2" style={{ color: "#1d1d1f" }}>2 Guests</option>
+                                <option value="3" style={{ color: "#1d1d1f" }}>3 Guests</option>
+                                <option value="4" style={{ color: "#1d1d1f" }}>4 Guests</option>
+                                <option value="5" style={{ color: "#1d1d1f" }}>5+ Guests</option>
                             </select>
                         </div>
 
