@@ -1,0 +1,93 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { BookOpen } from "lucide-react";
+
+type Booking = {
+    id: number;
+    guestName: string;
+    roomNumber: string;
+    checkIn: string;
+    checkOut: string;
+    totalPrice: number;
+    status: string;
+};
+
+const statusStyles: Record<string, string> = {
+    "Checked In":  "bg-green-100 text-green-700",
+    "Confirmed":   "bg-blue-100 text-blue-700",
+    "Checked Out": "bg-gray-100 text-gray-600",
+    "Cancelled":   "bg-red-100 text-red-600",
+};
+
+function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+}
+
+function getRef(id: number) {
+    return `BK${String(id).padStart(3, "0")}`;
+}
+
+export default function BookingHistoryPage() {
+    const [bookings, setBookings] = useState<Booking[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("/api/bookings")
+            .then((res) => res.json())
+            .then((data) => {
+                setBookings(Array.isArray(data) ? data : []);
+                setLoading(false);
+            })
+            .catch(() => setLoading(false));
+    }, []);
+
+    return (
+        <div className="p-8">
+            <div className="flex items-center gap-3 mb-1">
+                <BookOpen className="text-purple-600" size={24} />
+                <h1 className="text-2xl font-bold text-gray-800">Booking History</h1>
+            </div>
+            <p className="text-gray-500 text-sm mb-6 ml-9">Complete record of all guest bookings.</p>
+
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                {loading ? (
+                    <div className="p-12 text-center text-gray-400 text-sm">Loading bookings...</div>
+                ) : bookings.length === 0 ? (
+                    <div className="p-12 text-center text-gray-400 text-sm">No bookings found.</div>
+                ) : (
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                                <th className="text-left px-6 py-3.5 font-semibold">Booking ID</th>
+                                <th className="text-left px-6 py-3.5 font-semibold">Guest</th>
+                                <th className="text-left px-6 py-3.5 font-semibold">Room</th>
+                                <th className="text-left px-6 py-3.5 font-semibold">Check In</th>
+                                <th className="text-left px-6 py-3.5 font-semibold">Check Out</th>
+                                <th className="text-left px-6 py-3.5 font-semibold">Amount</th>
+                                <th className="text-left px-6 py-3.5 font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-50">
+                            {bookings.map((b) => (
+                                <tr key={b.id} className="hover:bg-gray-50/60 transition-colors">
+                                    <td className="px-6 py-3.5 text-purple-600 font-mono text-xs">{getRef(b.id)}</td>
+                                    <td className="px-6 py-3.5 font-medium text-gray-800">{b.guestName}</td>
+                                    <td className="px-6 py-3.5 text-gray-500">Room {b.roomNumber}</td>
+                                    <td className="px-6 py-3.5 text-gray-500">{formatDate(b.checkIn)}</td>
+                                    <td className="px-6 py-3.5 text-gray-500">{formatDate(b.checkOut)}</td>
+                                    <td className="px-6 py-3.5 font-semibold text-gray-700">£{b.totalPrice.toLocaleString()}</td>
+                                    <td className="px-6 py-3.5">
+                                        <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusStyles[b.status] ?? "bg-gray-100 text-gray-600"}`}>
+                                            {b.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+        </div>
+    );
+}

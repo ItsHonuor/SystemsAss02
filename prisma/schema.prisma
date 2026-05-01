@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Staff {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  role      String
+  phone     String?
+  status    String   @default("Active")
+  createdAt DateTime @default(now())
+}
+
+model Room {
+  id          Int       @id @default(autoincrement())
+  roomNumber  String    @unique
+  type        String
+  floor       Int
+  status      String
+  guestName   String?
+  checkOut    DateTime?
+  price       Float     @default(89)
+  image       String?
+  description String?
+}
+
+model Booking {
+  id          Int      @id @default(autoincrement())
+  guestName   String
+  guestEmail  String?
+  roomNumber  String
+  checkIn     DateTime
+  checkOut    DateTime
+  totalPrice  Float
+  status      String
+  createdAt   DateTime @default(now())
+}
+
+model KitchenOrder {
+  id         Int      @id @default(autoincrement())
+  roomNumber String
+  items      String
+  status     String   @default("Preparing")
+  orderTime  DateTime @default(now())
+}
+
+model HousekeepingTask {
+  id         Int      @id @default(autoincrement())
+  roomNumber String
+  taskType   String
+  priority   String
+  status     String
+  assignedTo String?
+  completedAt DateTime?
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
